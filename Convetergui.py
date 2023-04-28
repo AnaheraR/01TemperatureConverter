@@ -4,13 +4,19 @@ from tkinter import Tk, Frame, Label, Entry, Button
 class Converter:
 
     def __init__(self):
+        # common format for all buttons
+        # Arial size 14 bold, with white text
+        button_font = ("Arial", "12", "bold")
+        button_fg = "#FFFFFF"
+
         # Set up GUI Frame
+        global root
         self.temp_instructions = None
         self.temp_frame = Frame()
         self.temp_frame.grid()
 
         self.temp_heading = Label(self.temp_frame,
-                                  text="Temperature Converter" ,
+                                  text="Temperature Converter",
                                   font=("Arial", "16", "bold")
                                   )
         self.temp_heading.grid(row=0)
@@ -20,7 +26,7 @@ class Converter:
                        "it from centigrade to Fahrenheit."
         self.temp_instructions = Label(self.temp_frame,
                                        text=instructions,
-                                       wrap=250, width=40,
+                                       wraplength=250, width=40,
                                        justify="left")
         self.temp_instructions.grid(row=1)
 
@@ -41,10 +47,32 @@ class Converter:
         self.to_celsius_button = Button(self.button_frame,
                                         text="To Degrees C",
                                         bg="#990099",
-                                        fg="#FFFFFF")
-        self.to_celsius_button.grid(row=0, column=0)
-        self.to_farenheit_button = Button(self.button_frame,
+                                        fg=button_fg,
+                                        font=button_font, width=12)
+        self.to_celsius_button.grid(row=0, column=0, padx=5, pady=5)
 
+        self.to_fahrenheit_button = Button(self.button_frame,
+                                           text="To Fahrenheit",
+                                           bg="#009900",
+                                           fg=button_fg,
+                                           font=button_font, width=12)
+        self.to_fahrenheit_button.grid(row=0, column=1, padx=5, pady=5)
+
+        self.to_help_button = Button(self.button_frame,
+                                     text="Help / Info",
+                                     bg="#cc6600",
+                                     fg=button_fg,
+                                     font=button_font, width=12)
+        self.to_help_button.grid(row=1, column=0, padx=5, pady=5)
+
+        from tkinter import DISABLED
+        self.to_history_button = Button(self.button_frame,
+                                        text="History / Export",
+                                        bg="#004c99",
+                                        fg=button_fg,
+                                        font=button_font, width=12,
+                                        state=DISABLED)
+        self.to_history_button.grid(row=1, column=1, padx=5, pady=5)
 
 
 # main routine
