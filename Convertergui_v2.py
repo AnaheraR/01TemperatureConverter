@@ -94,6 +94,9 @@ class Converter:
         error = f"Please enter a number that is more than {min_value}"
 
         # check that use has entered a valid number...
+
+        response = self.temp_entry.get()
+
         try:
             response = self.temp_entry.get()
             response = float(response)
@@ -104,21 +107,29 @@ class Converter:
         except ValueError:
             has_error = "Yes"
 
-        # if the number is invalid, display error message
+        # Sets var_has_error so that entry box and
+        # label can be correctly formatted by formatting function
         if has_error == "Yes":
-            self.temp_error.config(text=error, fg="#9c0000")
-        else:
-            self.temp_error.config(text="You are OK", fg="blue")
+            self.var_has_error.set("Yes")
+            self.var_feedback.set(error)
+            return "Invalid"
 
-            # if we have at least one valid calculation,
-            # enable history / export button
+        # If we have no errors...
+        else:
+            # set to 'no' in case of previous errors
+            self.var_has_error.set("no")
+
+            # return number to be
+            # converted and enable history button
             self.to_history_button.config(state="normal")
+            return response
 
     # check temperature is more than -459 and convert it
     def to_celsius(self):
 
         self.check_temp(-459)
 
+    # shows user output
 
 # main routine
 if __name__ == "__main__":
