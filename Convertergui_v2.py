@@ -1,9 +1,22 @@
-from tkinter import Tk, Frame, Label, Entry, Button
+from tkinter import Tk, Frame, Label, Entry, Button, StringVar
+
+
+class Stringvar:
+    def set(self, param):
+        pass
 
 
 class Converter:
 
     def __init__(self):
+
+        # Initialise variables (such as the feedback variable)
+        self.var_feedback = StringVar()
+        self.var_feedback.set("")
+        
+        self.var_has_error = Stringvar()
+        self.var_has_error.set("no")
+
         # common format for all buttons
         # Arial size 14 bold, with white text
         button_font = ("Arial", "12", "bold")
@@ -101,7 +114,7 @@ class Converter:
             # enable history / export button
             self.to_history_button.config(state="normal")
 
-# check temperature is more than -459 and convert it
+    # check temperature is more than -459 and convert it
     def to_celsius(self):
 
         self.check_temp(-459)
