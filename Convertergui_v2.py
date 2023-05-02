@@ -124,6 +124,7 @@ class Converter:
         to_convert = self.check_temp(-459)
 
         if to_convert != "invalid":
+            # do calculation
             self.var_feedback.set("Converting {} to "
                                   "C :)".format(to_convert))
 
