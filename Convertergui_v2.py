@@ -1,11 +1,6 @@
 from tkinter import Tk, Frame, Label, Entry, Button, StringVar
 
 
-class Stringvar:
-    def set(self, param):
-        pass
-
-
 class Converter:
 
     def __init__(self):
@@ -13,8 +8,8 @@ class Converter:
         # Initialise variables (such as the feedback variable)
         self.var_feedback = StringVar()
         self.var_feedback.set("")
-        
-        self.var_has_error = Stringvar()
+
+        self.var_has_error = StringVar()
         self.var_has_error.set("no")
 
         # common format for all buttons
@@ -126,10 +121,30 @@ class Converter:
 
     # check temperature is more than -459 and convert it
     def to_celsius(self):
+        to_convert = self.check_temp(-459)
 
-        self.check_temp(-459)
+        if to_convert != "invalid":
+            self.var_feedback.set("Converting {} to "
+                                  "C :)".format(to_convert))
 
-    # shows user output
+        self.output_answer()
+
+    # shows user output and clears entry widget
+    # ready for next calculation
+    def output_answer(self):
+        output = self.var_feedback.get()
+        has_errors = self.var_has_error.get()
+
+        if has_errors == "yes":
+            self.temp_error.config(fg="#9C0000")
+            self.temp_entry.config(bg="#F8CECC")
+
+        else:
+            self.temp_error.config(fg="#004C00")
+            self.temp_entry.config(bg="#FFFFFF")
+
+        self.temp_error.config(text=output)
+
 
 # main routine
 if __name__ == "__main__":
