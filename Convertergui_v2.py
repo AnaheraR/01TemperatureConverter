@@ -64,7 +64,8 @@ class Converter:
                                            text="To Fahrenheit",
                                            bg="#009900",
                                            fg=button_fg,
-                                           font=button_font, width=12)
+                                           font=button_font, width=12,
+                                           command=self.to_fahrenheit)
         self.to_fahrenheit_button.grid(row=0, column=1, padx=5, pady=5)
 
         self.to_help_button = Button(self.button_frame,
@@ -93,7 +94,6 @@ class Converter:
         response = self.temp_entry.get()
 
         try:
-            response = self.temp_entry.get()
             response = float(response)
 
             if response < min_value:
@@ -130,6 +130,16 @@ class Converter:
 
         self.output_answer()
 
+    def to_fahrenheit(self):
+        to_convert = self.check_temp(-273)
+
+        if to_convert != "invalid":
+            # do calculation
+            self.var_feedback.set("Converting {} to "
+                                  "F :)".format(to_convert))
+
+        self.output_answer()
+
     # shows user output and clears entry widget
     # ready for next calculation
     def output_answer(self):
@@ -137,6 +147,7 @@ class Converter:
         has_errors = self.var_has_error.get()
 
         if has_errors == "yes":
+            # red text, pink entry box
             self.temp_error.config(fg="#9C0000")
             self.temp_entry.config(bg="#F8CECC")
 
