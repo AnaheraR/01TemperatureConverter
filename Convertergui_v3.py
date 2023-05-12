@@ -12,6 +12,8 @@ class Converter:
         self.var_has_error = StringVar()
         self.var_has_error.set("no")
 
+        self.all_calculations = []
+
         # common format for all buttons
         # Arial size 14 bold, with white text
         button_font = ("Arial", "12", "bold")
@@ -154,6 +156,11 @@ class Converter:
             feedback = from_to.format(to_convert, deg_sign,
                                       answer, deg_sign)
             self.var_feedback.set(feedback)
+
+            self.all_calculations.append(feedback)
+
+            # Delete code below when history component is working !
+            print(self.all_calculations)
 
         self.output_answer()
 
