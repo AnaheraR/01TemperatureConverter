@@ -121,10 +121,10 @@ class HistoryExport:
         self.dismiss_button = Button(self.history_frame,
                                      font=("Arial", "12", "bold"),
                                      text="Dismiss", bg="#666666",
-                                     fg="#FFFFFF",
+                                     fg="#FFFFFF", width=12,
                                      command=partial(self.close_history,
                                                      partner))
-        self.dismiss_button.grid(row=2, padx=10, pady=10)
+        self.dismiss_button.grid(row=0, column=1, padx=10, pady=10)
 
     # closes help dialogue (used by button and x at top of dialogue)
     def close_history(self, partner):
