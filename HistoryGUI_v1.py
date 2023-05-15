@@ -63,6 +63,55 @@ class HistoryExport:
                                    )
         self.history_frame.grid()
 
+        self.history_heading_label = Label(self.history_frame,
+                                           text="History / Export",
+                                           font=("Arial", "16", "bold"))
+        self.history_heading_label.grid(row=0)
+
+        # History text and label
+        hist_text = "Below are your recent calculations - " \
+                    "showing 3 / 3 calculations.  " \
+                    "All calculations are shown to the nearest degree"
+        self.text_instructions_label = Label(self.history_frame,
+                                             text=hist_text,
+                                             width=45, justify="left",
+                                             wraplength=300,
+                                             padx=10, pady=10)
+        self.text_instructions_label.grid(row=1)
+
+        self.all_calcs_label = Label(self.history_frame,
+                                     text="calculations go here",
+                                     padx=10, pady=10, bg="#ffe6cc",
+                                     width=40, justify="left")
+        self.all_calcs_label.grid(row=2)
+
+        # instructions for saving files
+        save_text = "Either choose a custom file name (and push " \
+                    "<Export>) or simply push <Export> to save your " \
+                    "calculations in a text file.  If the " \
+                    "filename already exists, it will be overwritten!"
+        self.save_instructions_label = Label(self.history_frame,
+                                             text=save_text,
+                                             wraplength=300,
+                                             justify="left", width=40,
+                                             padx=10, pady=10)
+        self.save_instructions_label.grid(row=3)
+
+        # Filename entry widget, white background to start
+        self.filename_entry = Entry(self.history_frame,
+                                    font=("Arial", "14"),
+                                    bg="#ffffff", width=25)
+        self.filename_entry.grid(row=4, padx=10, pady=10)
+
+        self.filename_error_label = Label(self.history_frame,
+                                          text="Filename error goes here",
+                                          fg="#9c0000",
+                                          font=("Arial", "12", "bold"))
+        self.filename_error_label.grid(row=5)
+
+        self.button_frame = Frame(self.history_frame)
+        self.button_frame.grid(row=6)
+
         self.dismiss_button = Button(self.history_frame,
                                      font=("Arial", "12", "bold"),
                                      text="Dismiss", bg="#666666",
