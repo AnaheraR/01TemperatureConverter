@@ -224,7 +224,7 @@ class DisplayHelp:
                     "calculation history and export it to a text " \
                     "file, please click the 'History / Export' button."
         self.help_text_label = Label(self.help_frame, bg=background,
-                                     text=help_text, wrap=350,
+                                     text=help_text, wraplength=350,
                                      justify="left")
         self.help_text_label.grid(row=1, padx=10)
 
