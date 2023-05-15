@@ -112,6 +112,12 @@ class HistoryExport:
         self.button_frame = Frame(self.history_frame)
         self.button_frame.grid(row=6)
 
+        self.export_button = Button(self.button_frame,
+                                    font=("Arial", "12", "bold"),
+                                    text="Export", bg="#004c99",
+                                    fg="#FFFFFF", width=12)
+        self.export_button.grid(row=0, column=0, padx=10, pady=10)
+
         self.dismiss_button = Button(self.history_frame,
                                      font=("Arial", "12", "bold"),
                                      text="Dismiss", bg="#666666",
