@@ -32,25 +32,36 @@ class Converter:
                                      bg="#004c99",
                                      fg=button_fg,
                                      font=button_font, width=12,
-                                     command=self.to_history)
-        self.to_history_button.grid(row=1, column=0, padx=5, pady=5)
+                                     command=lambda: self.to_history(self.all_calculations))
+        self.to_history_button.grid(row=1, column=1, padx=5, pady=5)
 
         # **** Remove when integrating!! ***
         self.to_history_button.config(state="normal")
 
-    def to_history(self):
-        HistoryExport(self)
+    def to_history(self, all_calculations):
+        HistoryExport(self, all_calculations)
 
 
 class HistoryExport:
 
-    def __init__(self, partner):
+    def __init__(self, partner, calc_list):
+
+        # set maximum number of calculations to 5
+        # this can be changed if we want to show fewer /
+        # more calculations
+        max_calcs = 5
+        self.var_max_calcs = IntVar()
+        self.var_max_calcs.set(max_calcs)
+
+        # function converts contents of calculation list
+        # into a string.
+        calc_string_text = self.get_calc_string(calc_list)
 
         # setup dialogue box and background colour
         background = "#FFE6CC"
         self.history_box = Toplevel()
 
-        # disable help button
+        # disable history button
         partner.to_history_button.config(state=DISABLED)
 
         # if users press cross at top, closes help and
@@ -118,7 +129,7 @@ class HistoryExport:
                                     fg="#FFFFFF", width=12)
         self.export_button.grid(row=0, column=0, padx=10, pady=10)
 
-        self.dismiss_button = Button(self.history_frame,
+        self.dismiss_button = Button(self.button_frame,
                                      font=("Arial", "12", "bold"),
                                      text="Dismiss", bg="#666666",
                                      fg="#FFFFFF", width=12,
@@ -126,8 +137,9 @@ class HistoryExport:
                                                      partner))
         self.dismiss_button.grid(row=0, column=1, padx=10, pady=10)
 
-    # closes help dialogue (used by button and x at top of dialogue)
+    # closes history dialogue (used by button and x at top of dialogue)
     def close_history(self, partner):
+        # puts history button back to normal...
         partner.to_history_button.config(state="normal")
         self.history_box.destroy()
 
