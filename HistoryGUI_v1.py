@@ -1,5 +1,7 @@
 from tkinter import *
 from functools import partial  # To prevent unwanted windows
+from datetime import date
+import re
 
 
 class Converter:
@@ -28,11 +30,11 @@ class Converter:
         self.button_frame.grid(row=0)
 
         self.to_history_button = Button(self.button_frame,
-                                     text="History / Export",
-                                     bg="#004c99",
-                                     fg=button_fg,
-                                     font=button_font, width=12,
-                                     command=lambda: self.to_history(self.all_calculations))
+                                        text="History / Export",
+                                        bg="#004c99",
+                                        fg=button_fg,
+                                        font=button_font, width=12,
+                                        command=lambda: self.to_history(self.all_calculations))
         self.to_history_button.grid(row=1, column=1, padx=5, pady=5)
 
         # **** Remove when integrating!! ***
@@ -67,7 +69,7 @@ class HistoryExport:
         # if users press cross at top, closes help and
         # 'releases' help button
         self.history_box.protocol('WM_DELETE_WINDOW',
-                               partial(self.close_history, partner))
+                                  partial(self.close_history, partner))
 
         self.history_frame = Frame(self.history_box, width=300,
                                    height=200
@@ -142,6 +144,40 @@ class HistoryExport:
         # puts history button back to normal...
         partner.to_history_button.config(state="normal")
         self.history_box.destroy()
+
+    def get_calc_string(self, var_calculations):
+        # get maximum calculations to display
+        # (was set in __init__ function)
+        max_calcs = self.var_max_calcs.get()
+        calc_string = ""
+
+        # generate string for writing to file
+        # (the oldest calculation first)
+        oldest_first = ""
+        for item in var_calculations:
+            oldest_first += item
+            oldest_first += "\n"
+
+        self.var_calc_list.set(oldest_first)
+
+        # to work out how many times we need to loop
+        # to output either the last five calculations
+        # or all the calculations
+        if len(var_calculations) >= max_calcs:
+            stop = max_calcs
+
+        else:
+            stop = len(var_calculations)
+
+        # iterate to all but last item,
+        # adding item and line break to calculation string
+        for item in range(0, stop):
+            calc_string += var_calculations[len(var_calculations)
+                                            - item - 1]
+            calc_string += "\n"
+
+        calc_string = calc_string.strip()
+        return calc_string
 
 
 # main routine
