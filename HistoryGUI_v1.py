@@ -81,10 +81,27 @@ class HistoryExport:
                                            font=("Arial", "16", "bold"))
         self.history_heading_label.grid(row=0)
 
+        # customize text and background colour for calculation
+        # area depending on whether all or only some calculations
+        # are shown.
+        num_calcs = len(calc_list)
+
+        if num_calcs > max_calcs:
+            calc_background = "#FFE6CC"     # Peach
+            showing_all = "Here are your recent calculations " \
+                          "({}/{} calculations shown.) Please export" \
+                          " your " \
+                          "calculations to see your full calculation " \
+                          "history".format(max_calcs, num_calcs)
+
+        else:
+            calc_background = "#B4FACB"         # Pale green
+            showing_all = "Below is your calculation history"
+
         # History text and label
-        hist_text = "Below are your recent calculations - " \
-                    "showing 3 / 3 calculations.  " \
-                    "All calculations are shown to the nearest degree"
+        hist_text = "{}  \n\nAll calculations are shown to " \
+                    "the nearest degree.".format(showing_all)
+
         self.text_instructions_label = Label(self.history_frame,
                                              text=hist_text,
                                              width=45, justify="left",
@@ -151,15 +168,6 @@ class HistoryExport:
         max_calcs = self.var_max_calcs.get()
         calc_string = ""
 
-        # generate string for writing to file
-        # (the oldest calculation first)
-        oldest_first = ""
-        for item in var_calculations:
-            oldest_first += item
-            oldest_first += "\n"
-
-        self.var_calc_list.set(oldest_first)
-
         # to work out how many times we need to loop
         # to output either the last five calculations
         # or all the calculations
@@ -171,10 +179,14 @@ class HistoryExport:
 
         # iterate to all but last item,
         # adding item and line break to calculation string
-        for item in range(0, stop):
+        for item in range(0, stop - 1):
             calc_string += var_calculations[len(var_calculations)
                                             - item - 1]
             calc_string += "\n"
+
+        # add final item without extra linebreak
+        # ie: last item on list will be fifth from the end!
+        calc_string += var_calculations[-max_calcs]
 
         calc_string = calc_string.strip()
         return calc_string
