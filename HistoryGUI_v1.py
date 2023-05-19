@@ -168,6 +168,15 @@ class HistoryExport:
         max_calcs = self.var_max_calcs.get()
         calc_string = ""
 
+        # generate string for writing to file
+        # (the oldest calculation first)
+        oldest_first = ""
+        for item in var_calculations:
+            oldest_first += item
+            oldest_first += "\n"
+
+        self.var_calc_list.set(oldest_first)
+
         # to work out how many times we need to loop
         # to output either the last five calculations
         # or all the calculations
