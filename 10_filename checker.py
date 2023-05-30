@@ -28,3 +28,7 @@ def filename_maker(filename):
         filename = filename_ok
 
     return filename
+
+
+# retrieves date and creates YYYY_MM_DD string
+def get_date():
