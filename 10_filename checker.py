@@ -32,3 +32,47 @@ def filename_maker(filename):
 
 # retrieves date and creates YYYY_MM_DD string
 def get_date():
+    today = date.today()
+
+    day = today.strftime("%d")
+    month = today.strftime("%m")
+    year = today.strftime("%y")
+
+    return "{}_{}_{}".format(year, month, day)
+
+
+# checks that filename only contains letters,
+# numbers and underscores. Returns either "" if
+# OK or the problem if we have an error
+def check_filename(filename):
+    problem = ""
+
+    # regular expression to check filename is valid
+    valid_char = "[A-Za-z0-9_]"
+
+    # iterates through filename and checks each letter.
+    for letter in filename:
+        if re.match(valid_char, letter):
+            continue
+
+        elif letter == " ":
+            problem = "Sorry, no spaces allowed"
+
+        else:
+            problem = ("Sorry, no {}'s allowed".format(letter))
+        break
+
+    if problem != "":
+        problem = "{}.  Use letters / numbers / " \
+                  "underscores only.".format(problem)
+
+    return problem
+
+
+# **** Main routine goes here ****
+test_filenames = ["", "Test.txt", "Test It", "test"]
+
+for item in test_filenames:
+    checked = filename_maker(item)
+    print(checked)
+    print()
