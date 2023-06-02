@@ -272,6 +272,32 @@ class HistoryExport:
 
         return problem
 
+    def write_to_file(self):
+        # retrieve date, filename and calculation history...
+        filename = self.var_filename.get()
+        generated_date = self.var_todays_date.get()
+
+        # set up strings to be written to file
+        heading = "**** Temperature Calculations ****\n"
+        generated = "Generated: {}\n".format(generated_date)
+        sub_heading = "Here is your calculation history " \
+                      "(oldest to newest)...\n"
+        all_calculations = self.var_calc_list.get()
+
+        to_output_list = [heading, generated,
+                          sub_heading, all_calculations]
+
+        # write to file
+        # write output to file
+        text_file = open(filename, "w+")
+
+        for item in to_output_list:
+            text_file.write(item)
+            text_file.write("\n")
+
+        # close file
+        text_file.close()
+
     # closes history dialogue (used by button and x at top of dialogue)
     def close_history(self, partner):
         # puts history button back to normal...
