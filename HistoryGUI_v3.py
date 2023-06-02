@@ -59,6 +59,7 @@ class HistoryExport:
         # for when writing to file
         self.var_filename = StringVar()
         self.var_todays_date = StringVar()
+        self.var_calc_list = StringVar()
 
         # function converts contents of calculation list
         # into a string.
@@ -169,6 +170,13 @@ class HistoryExport:
         max_calcs = self.var_max_calcs.get()
         calc_string = ""
 
+        # generate string for writing to file
+        # (the oldest calculation first)
+        oldest_first = ""
+        for item in var_calculations:
+            oldest_first += item
+            oldest_first += "\n"
+
         # to work out how many times we need to loop
         # to output either the last five calculations
         # or all the calculations
@@ -197,10 +205,10 @@ class HistoryExport:
         filename = self.filename_entry.get()
 
         filename_ok = ""
+        date_part = self.get_date()
 
         if filename == "":
             # get date and create default filename
-            date_part = self.get_date()
             filename = "{}_temperature_calculations".format(date_part)
 
         else:
@@ -215,6 +223,9 @@ class HistoryExport:
             self.filename_feedback_label.config(text=success,
                                                 fg="dark green")
             self.filename_entry.config(bg="#FFFFFF")
+
+            # Write content to file!
+            self.write_to_file()
 
         else:
             self.filename_feedback_label.config(text=filename_ok,
